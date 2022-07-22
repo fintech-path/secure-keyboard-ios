@@ -3,9 +3,9 @@ Pod::Spec.new do |s|
   s.version  = '0.0.1'
   s.license  = { :type => 'Apache 2.0', :file => 'LICENSE' }
   s.summary  = 'homecredit security keyboard framework.'
-  s.homepage = 'https://git.homecreditcfc.cn/it-dev/hcc-open-source/fe/ios/hcsecuritykeyboard'
+  s.homepage = 'https://github.com/homecreditchina/secure-keyboard-ios'
   s.authors  = { 'Chace Wang' => 'Chace.Wang@homecredit.cn' }
-  s.source   = { :git => 'https://git.homecreditcfc.cn/it-dev/hcc-open-source/fe/ios/hcsecuritykeyboard', :tag => s.version, :submodules => true }
+  s.source   = { :git => 'https://github.com/homecreditchina/secure-keyboard-ios', :tag => s.version, :submodules => true }
   s.requires_arc = true
   s.ios.deployment_target = '9.0'
   s.resource_bundle = {
