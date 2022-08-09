@@ -26,7 +26,7 @@ pod 'HCSecurityKeyboard', :git => 'https://github.com/hccxc/secure-keyboard-ios'
 ### How to use
    ```swift
    let keyboardView = SRTKeyboardView()
-   keyboardView.title = "捷信金融安全键盘"
+   keyboardView.title = "安全键盘"
    keyboardView.titleBackgroundColor = .gray
    keyboardView.titleColor = .black
    
