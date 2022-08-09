@@ -68,12 +68,10 @@ public class SRTKeyboardView: UIInputView {
 
     @objc
     private func userDidTakeScreenshot() {
-        print("Screenshot is being taken, please pay attention to the safety of personal information!")
     }
 
     @objc
     private func capturedDidChange() {
-        print("The screen is being recorded, please pay attention to the safety of personal information!")
     }
 
     // MARK: - Properties
@@ -226,13 +224,10 @@ public class SRTKeyboardView: UIInputView {
     private func tapFunctionButton(_ sender: UIButton) {
         switch sender.tag {
         case SRTFunctionKeyType.capsLock.rawValue:
-            print("HCPrint, tap capsLock")
             overturnKeys()
         case SRTFunctionKeyType.backspace.rawValue:
-            print("HCPrint, tap backspace")
             insertBackspace()
         case SRTFunctionKeyType.space.rawValue:
-            print("HCPrint, tap space")
             insertSpace()
         default:
             break
@@ -623,7 +618,6 @@ extension SRTKeyboardView: SRTSecurityTextBox {
     func append(_ text: String) {
         let newString = plainText + text
         textStore = encodeText(newString)
-        print("HCPrint: \(textStore), \(newString)")
         observeTextChanged?()
     }
 
@@ -635,7 +629,6 @@ extension SRTKeyboardView: SRTSecurityTextBox {
         let current = plainText
         let newString = String(current[..<current.index(before: current.endIndex)])
         textStore = encodeText(newString)
-        print("HCPrint: \(textStore), \(newString)")
         observeTextChanged?()
     }
 
