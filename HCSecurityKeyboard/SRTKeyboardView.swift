@@ -47,7 +47,11 @@ public class SRTKeyboardView: UIInputView {
             return Double(window?.safeAreaInsets.bottom ?? 0.0)
         } else {
             let window = UIApplication.shared.windows.first
-            return Double(window?.safeAreaInsets.bottom ?? 0.0)
+            if #available(iOS 11.0, *) {
+                return Double(window?.safeAreaInsets.bottom ?? 0.0)
+            } else {
+                return Double(window?.frame.maxY ?? 0.0)
+            }
         }
     }
 
