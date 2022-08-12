@@ -17,7 +17,7 @@
 [CocoaPods](https://cocoapods.org) 是Cocoa项目的依赖关系管理器。有关使用和安装说明，请访问他们的网站。要使用CocoaPods将安全键盘集成到您的Xcode项目中，请在“Podfile”中指定它：
 
 ```ruby
-pod 'HCSecurityKeyboard', :git => 'https://github.com/hccxc/secure-keyboard-ios'
+pod 'HCSecurityKeyboard'
 ```
 
 ## 技术文档
