@@ -16,10 +16,10 @@ Various types of information theft attacks based on keyboard input data are very
 
 ### CocoaPods
 
-[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate Alamofire into your Xcode project using CocoaPods, specify it in your `Podfile`:
+[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate HCSecurityKeyboard into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'HCSecurityKeyboard', :git => 'https://github.com/hccxc/secure-keyboard-ios', :branch => 'main'
+pod 'HCSecurityKeyboard', :git => 'https://github.com/hccxc/secure-keyboard-ios'
 ```
 
 ## Documentation 
