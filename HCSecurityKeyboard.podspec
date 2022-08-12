@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.license  = { :type => 'Apache 2.0', :file => 'LICENSE' }
   s.summary  = 'homecredit security keyboard framework.'
   s.homepage = 'https://github.com/hccxc/secure-keyboard-ios'
-  s.authors  = { 'Chace Wang' => 'Chace.Wang@homecredit.cn' }
+  s.authors  = { 'hcxc' => 'hcc_app@homecredit.cn' }
   s.source   = { :git => 'https://github.com/hccxc/secure-keyboard-ios', :tag => s.version, :submodules => true }
   s.requires_arc = true
   s.ios.deployment_target = '9.0'
