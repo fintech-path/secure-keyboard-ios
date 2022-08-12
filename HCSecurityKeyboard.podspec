@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'HCSecurityKeyboard'
-  s.version  = '0.0.1'
+  s.version  = '1.0.0'
   s.license  = { :type => 'Apache 2.0', :file => 'LICENSE' }
   s.summary  = 'homecredit security keyboard framework.'
   s.homepage = 'https://github.com/hccxc/secure-keyboard-ios'
