@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.authors  = { 'hcxc' => 'hcc_app@homecredit.cn' }
   s.source   = { :git => 'https://github.com/hccxc/secure-keyboard-ios', :tag => s.version, :submodules => true }
   s.requires_arc = true
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '11.0'
   s.resource_bundle = {
        'HCSecurityKeyboard' => ['Resource/*.png']
     }
