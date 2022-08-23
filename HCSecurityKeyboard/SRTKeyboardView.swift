@@ -18,8 +18,13 @@ import SnapKit
 import UIKit
 
 private let numericKeysPool: [SRTKeyItem] = [
+    .alpha1, .alpha2, .alpha3, .alpha4, .alpha5, .alpha6, .alpha7, .alpha8, .alpha9, .symbol17, .alpha0,
+]
+
+private let alphaCantainsNumericKeysPool: [SRTKeyItem] = [
     .alpha1, .alpha2, .alpha3, .alpha4, .alpha5, .alpha6, .alpha7, .alpha8, .alpha9, .alpha0,
 ]
+
 private let alphaKeysPool: [SRTKeyItem] = [
     .alphaQ, .alphaW, .alphaE, .alphaR, .alphaT, .alphaY, .alphaU, .alphaI, .alphaO, .alphaP,
     .alphaA, .alphaS, .alphaD, .alphaF, .alphaG, .alphaH, .alphaJ, .alphaK, .alphaL,
@@ -144,12 +149,14 @@ public class SRTKeyboardView: UIInputView {
         return keyboardType == .alphaAndNumeric ? 7 : 2
     }
     private let buttonLines = 4
-
+    private let numericButtonCount = 3
     private var buttons: [SRTKeyboardButton] = []
     private var functionButtons: [UIButton] = []
     private var buttonSize = CGSize(width: 30, height: 45)
+    private var numericButtonSize = CGSize(width: (UIScreen.main.bounds.width - 10 - 10) / 3, height: 45)
     private var functionButtonSize = CGSize(width: 50, height: 45)
     private var marginHorizontalBetweenButtons = 0.0
+    private var numericMarginHorizontalBetweenButtons = 5.0
     private var marginVerticalBetweenButtons = 0.0
     private var firstAlphaPosition: [CGPoint] = []
 
@@ -244,7 +251,7 @@ public class SRTKeyboardView: UIInputView {
     }
     
     @objc
-    private func tapChangeKeyBoradTypeButton(_ sender: UIButton) {
+    private func tapChangeSymbolOrAlphaButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if keyboardType == .alphaAndNumeric {
             keyboardType = .symbol
@@ -253,7 +260,18 @@ public class SRTKeyboardView: UIInputView {
         }
         setKeyBoardView()
     }
-    
+
+    @objc
+    private func tapChangeNumericOrAlphaButton(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        if keyboardType == .numeric {
+            keyboardType = .alphaAndNumeric
+        } else {
+            keyboardType = .numeric
+        }
+        setKeyBoardView()
+    }
+
     @objc
     private func deleteLongPressFunction(_ action: UILongPressGestureRecognizer) {
         if action.state == .ended {
@@ -328,10 +346,11 @@ public class SRTKeyboardView: UIInputView {
 
 extension SRTKeyboardView {
     private func resetKeyScheme() {
-        if keyboardType == .alphaAndNumeric {
-            var pool = randomKeys ? numericKeysPool.sorted { _, _ -> Bool in
+        switch keyboardType {
+        case .alphaAndNumeric:
+            var pool = randomKeys ? alphaCantainsNumericKeysPool.sorted { _, _ -> Bool in
                 arc4random() < arc4random()
-            } : numericKeysPool
+            } : alphaCantainsNumericKeysPool
             let line1 = pool
             pool = randomKeys ? alphaKeysPool.sorted { _, _ -> Bool in
                 arc4random() < arc4random()
@@ -340,7 +359,7 @@ extension SRTKeyboardView {
             let line3 = Array(pool[buttonCountLine2 ..< (buttonCountLine2 + buttonCountLine3)])
             let line4 = Array(pool[(buttonCountLine2 + buttonCountLine3)...])
             keyScheme = [line1, line2, line3, line4]
-        } else {
+        case .symbol:
             let pool = randomKeys ? symbolKeysPool.sorted { _, _ -> Bool in
                 arc4random() < arc4random()
             } : symbolKeysPool
@@ -348,6 +367,15 @@ extension SRTKeyboardView {
             let line2 = Array(pool[buttonCountLine1 ..< (buttonCountLine1 + buttonCountLine2)])
             let line3 = Array(pool[(buttonCountLine1 + buttonCountLine2) ..< (buttonCountLine1 + buttonCountLine2 + buttonCountLine3)])
             let line4 = Array(pool[(buttonCountLine1 + buttonCountLine2 + buttonCountLine3)...])
+            keyScheme = [line1, line2, line3, line4]
+        case .numeric:
+            let pool = randomKeys ? numericKeysPool.sorted { _, _ -> Bool in
+                arc4random() < arc4random()
+            } : numericKeysPool
+            let line1 = Array(pool[0 ..< 3])
+            let line2 = Array(pool[3 ..< 6])
+            let line3 = Array(pool[6 ..< 9])
+            let line4 = Array(pool[9 ..< 11])
             keyScheme = [line1, line2, line3, line4]
         }
     }
@@ -369,19 +397,36 @@ extension SRTKeyboardView {
         marginVerticalBetweenButtons = Double(Int(SRTKeyboardView.keyboardHeight - marginTop * 2) - Int(buttonSize.height) * buttonLines) / Double(buttonLines - 1)
         
         firstAlphaPosition.removeAll()
-        firstAlphaPosition.append(CGPoint(x: marginLeading, y: marginTop))
-        firstAlphaPosition.append(CGPoint(x: marginLeading, y: marginTop + Double(buttonSize.height) + marginVerticalBetweenButtons))
-        let leadingOfSKey = (Double(screenWidth) - Double(buttonSize.width * CGFloat(buttonCountLine4)) - marginHorizontalBetweenButtons * Double(buttonCountLine4 - 1)) / 2.0
-        
-        var line3x = marginLeading + marginHorizontalBetweenButtons + buttonSize.width
-        var line4x = leadingOfSKey
-        if keyboardType == .symbol {
-            line3x = marginLeading
-            line4x = marginLeading
+        switch keyboardType {
+        case .numeric:
+            firstAlphaPosition.append(CGPoint(x: marginLeading, y: marginTop))
+            firstAlphaPosition.append(CGPoint(x: marginLeading, y: marginTop + Double(numericButtonSize.height) + marginVerticalBetweenButtons))
+            let leadingOfSKey = (Double(screenWidth) - Double(numericButtonSize.width * CGFloat(numericButtonCount)) - marginHorizontalBetweenButtons * Double(numericButtonCount - 1)) / 2.0
+
+            var line3x = marginLeading + marginHorizontalBetweenButtons + numericButtonSize.width
+            var line4x = leadingOfSKey
+            if keyboardType == .symbol {
+                line3x = marginLeading
+                line4x = marginLeading
+            }
+
+            firstAlphaPosition.append(CGPoint(x: line3x, y: marginTop + Double(numericButtonSize.height * 2.0) + marginVerticalBetweenButtons + marginVerticalBetweenButtons))
+            firstAlphaPosition.append(CGPoint(x: line4x, y: marginTop + Double(numericButtonSize.height * 3.0) + marginVerticalBetweenButtons + marginVerticalBetweenButtons + marginVerticalBetweenButtons))
+        default:
+            firstAlphaPosition.append(CGPoint(x: marginLeading, y: marginTop))
+            firstAlphaPosition.append(CGPoint(x: marginLeading, y: marginTop + Double(buttonSize.height) + marginVerticalBetweenButtons))
+            let leadingOfSKey = (Double(screenWidth) - Double(buttonSize.width * CGFloat(buttonCountLine4)) - marginHorizontalBetweenButtons * Double(buttonCountLine4 - 1)) / 2.0
+
+            var line3x = marginLeading + marginHorizontalBetweenButtons + buttonSize.width
+            var line4x = leadingOfSKey
+            if keyboardType == .symbol {
+                line3x = marginLeading
+                line4x = marginLeading
+            }
+
+            firstAlphaPosition.append(CGPoint(x: line3x, y: marginTop + Double(buttonSize.height * 2.0) + marginVerticalBetweenButtons + marginVerticalBetweenButtons))
+            firstAlphaPosition.append(CGPoint(x: line4x, y: marginTop + Double(buttonSize.height * 3.0) + marginVerticalBetweenButtons + marginVerticalBetweenButtons + marginVerticalBetweenButtons))
         }
-        
-        firstAlphaPosition.append(CGPoint(x: line3x, y: marginTop + Double(buttonSize.height * 2.0) + marginVerticalBetweenButtons + marginVerticalBetweenButtons))
-        firstAlphaPosition.append(CGPoint(x: line4x, y: marginTop + Double(buttonSize.height * 3.0) + marginVerticalBetweenButtons + marginVerticalBetweenButtons + marginVerticalBetweenButtons))
     }
     
     private func setUIParameters() {
@@ -465,7 +510,7 @@ extension SRTKeyboardView {
         finishButton = button
         button.addTarget(self, action: #selector(tapFinishButton(_:)), for: .touchUpInside)
         
-        let changeKeyBoardTypeBtn: UIButton = {
+        let symbolAndAlphaBtn: UIButton = {
             $0.translatesAutoresizingMaskIntoConstraints = false
             accessoryView.addSubview($0)
             $0.setTitle("符号", for: .normal)
@@ -479,35 +524,79 @@ extension SRTKeyboardView {
             }
             return $0
         }(UIButton())
-        changeKeyBoardTypeButton = changeKeyBoardTypeBtn
-        changeKeyBoardTypeBtn.addTarget(self, action: #selector(tapChangeKeyBoradTypeButton(_:)), for: .touchUpInside)
+        changeKeyBoardTypeButton = symbolAndAlphaBtn
+        symbolAndAlphaBtn.addTarget(self, action: #selector(tapChangeSymbolOrAlphaButton(_:)), for: .touchUpInside)
+
+        let numericAndAlphaBtn: UIButton = {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            accessoryView.addSubview($0)
+            $0.setTitle("123", for: .normal)
+            $0.setTitle("ABC", for: .selected)
+            $0.setTitleColor(#colorLiteral(red: 0, green: 153.0/255.0, blue: 204.0/255.0, alpha: 1), for: .normal)
+            $0.setTitleColor(#colorLiteral(red: 0, green: 153.0/255.0, blue: 204.0/255.0, alpha: 1), for: .selected)
+            $0.titleLabel?.font = UIFont(name: "PingFangSC-Medium", size: 18)
+            $0.snp.makeConstraints { make in
+                make.left.equalTo(symbolAndAlphaBtn.snp_right).offset(18)
+                make.centerY.equalToSuperview()
+            }
+            return $0
+        }(UIButton())
+        changeKeyBoardTypeButton = numericAndAlphaBtn
+        numericAndAlphaBtn.addTarget(self, action: #selector(tapChangeNumericOrAlphaButton(_:)), for: .touchUpInside)
     }
 
     private func createButton(for row: Int) {
         guard row < buttonLines else { return }
 
-        let startPoint = firstAlphaPosition[row]
-        var leading = Double(startPoint.x)
-        let keyItems = keys(for: row)
-        for keyItem in keyItems {
-            let button: SRTKeyboardButton = {
-                $0.translatesAutoresizingMaskIntoConstraints = false
-                kyeboardContainer.addSubview($0)
-                $0.snp.makeConstraints { make in
-                    make.size.equalTo(buttonSize)
-                    make.leading.equalToSuperview().offset(leading)
-                    make.top.equalToSuperview().offset(startPoint.y)
+        switch keyboardType {
+        case .numeric:
+            let startPoint = CGPoint(x: 5.0, y: firstAlphaPosition[row].y)
+            var leading = Double(startPoint.x)
+            let keyItems = keys(for: row)
+            for keyItem in keyItems {
+                let button: SRTKeyboardButton = {
+                    $0.translatesAutoresizingMaskIntoConstraints = false
+                    kyeboardContainer.addSubview($0)
+                    $0.snp.makeConstraints { make in
+                        make.size.equalTo(numericButtonSize)
+                        make.leading.equalToSuperview().offset(leading)
+                        make.top.equalToSuperview().offset(startPoint.y)
+                    }
+                    buttons.append($0)
+                    return $0
+                }(SRTKeyboardButton())
+                button.input = keyItem.rawValue
+                button.securityType = .security(textBox: self)
+                if let textInput = textInput {
+                    button.textInput = textInput
                 }
-                buttons.append($0)
-                return $0
-            }(SRTKeyboardButton())
-            button.input = keyItem.rawValue
-            button.securityType = .security(textBox: self)
-            if let textInput = textInput {
-                button.textInput = textInput
-            }
 
-            leading += Double(buttonSize.width) + marginHorizontalBetweenButtons
+                leading += Double(numericButtonSize.width) + numericMarginHorizontalBetweenButtons
+            }
+        default:
+            let startPoint = firstAlphaPosition[row]
+            var leading = Double(startPoint.x)
+            let keyItems = keys(for: row)
+            for keyItem in keyItems {
+                let button: SRTKeyboardButton = {
+                    $0.translatesAutoresizingMaskIntoConstraints = false
+                    kyeboardContainer.addSubview($0)
+                    $0.snp.makeConstraints { make in
+                        make.size.equalTo(buttonSize)
+                        make.leading.equalToSuperview().offset(leading)
+                        make.top.equalToSuperview().offset(startPoint.y)
+                    }
+                    buttons.append($0)
+                    return $0
+                }(SRTKeyboardButton())
+                button.input = keyItem.rawValue
+                button.securityType = .security(textBox: self)
+                if let textInput = textInput {
+                    button.textInput = textInput
+                }
+
+                leading += Double(buttonSize.width) + marginHorizontalBetweenButtons
+            }
         }
     }
 
@@ -603,9 +692,14 @@ extension SRTKeyboardView {
             $0.layer.shadowOpacity = 1.0
             $0.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
             $0.snp.makeConstraints { make in
-                make.size.equalTo(functionButtonSize)
-                make.trailing.equalToSuperview().offset(-leading)
+                switch keyboardType {
+                case .numeric:
+                    make.size.equalTo(CGSize(width: numericButtonSize.width, height: numericButtonSize.height - 1))
+                default:
+                    make.size.equalTo(functionButtonSize)
+                }
                 make.bottom.equalToSuperview().offset(-bottom - 1) // Leave one pixel for the shadow
+                make.trailing.equalToSuperview().offset(-leading)
             }
             $0.tag = SRTFunctionKeyType.backspace.rawValue
             functionButtons.append($0)
