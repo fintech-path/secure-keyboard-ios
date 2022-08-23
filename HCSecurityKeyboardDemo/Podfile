@@ -6,6 +6,5 @@ target 'HCSecurityKeyboardDemo' do
   use_frameworks!
 
   # Pods for HCSecurityKeyboardDemo
-  pod 'HCSecurityKeyboard', :git => 'https://github.com/hccxc/secure-keyboard-ios',
-:branch => 'main'
+  pod 'HCSecurityKeyboard'
 end
