@@ -38,6 +38,16 @@ private let symbolKeysPool: [SRTKeyItem] = [
     .symbol31, .symbol32
 ]
 
+public protocol SRTKeyboardViewDelegate {
+    func userDidTakeScreenshot(keyboardView: SRTKeyboardView)
+    func capturedDidChange(keyboardView: SRTKeyboardView)
+}
+
+public extension SRTKeyboardViewDelegate {
+    func userDidTakeScreenshot(keyboardView: SRTKeyboardView) {}
+    func capturedDidChange(keyboardView: SRTKeyboardView) {}
+}
+
 // Initialization time should be after viewSafeAreaInsetsDidChange
 public class SRTKeyboardView: UIInputView {
     private static let keyboardHeight: Double = 196
@@ -77,10 +87,12 @@ public class SRTKeyboardView: UIInputView {
 
     @objc
     private func userDidTakeScreenshot() {
+        delegate?.userDidTakeScreenshot(keyboardView: self)
     }
 
     @objc
     private func capturedDidChange() {
+        delegate?.capturedDidChange(keyboardView: self)
     }
 
     // MARK: - Properties
@@ -127,6 +139,7 @@ public class SRTKeyboardView: UIInputView {
 
     public var randomKeys = false
     public var observeTextChanged: (() -> Void)?
+    public var delegate: SRTKeyboardViewDelegate?
 
     // MARK: - UI controls
 
