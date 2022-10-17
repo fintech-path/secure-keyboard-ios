@@ -48,6 +48,7 @@ class ViewController: UIViewController {
         // Limit the number of inputs
         keyboardView.textLimited = 50
         textInput.delegate = self
+        keyboardView.delegate = self
         // Try to leave this sentence to the end, because this is when the component is initialized
         keyboardView.textInput = textInput
     }
@@ -57,5 +58,20 @@ extension ViewController: UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Disables input from external keyboards
         return false
+    }
+}
+
+extension ViewController: SRTKeyboardViewDelegate {
+    public func userDidTakeScreenshot(keyboardView: SRTKeyboardView) {
+        let alert = UIAlertController(title: "警告", message: "正在截屏", preferredStyle: .alert)
+        let action = UIAlertAction(title: "好的", style: .cancel)
+        alert.addAction(action)
+        self.present(alert, animated: true)
+    }
+    public func capturedDidChange(keyboardView: SRTKeyboardView) {
+        let alert = UIAlertController(title: "警告", message: "正在录屏", preferredStyle: .alert)
+        let action = UIAlertAction(title: "好的", style: .cancel)
+        alert.addAction(action)
+        self.present(alert, animated: true)
     }
 }
