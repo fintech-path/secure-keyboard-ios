@@ -148,9 +148,10 @@ public class SRTKeyboardView: UIInputView {
     private weak var accessoryTitleLabel: UILabel!
     private weak var finishButton: UIButton!
     private weak var changeKeyBoardTypeButton: UIButton!
+    private weak var alphaSymbolButtonButton: UIButton!
     // MARK: - Private properties
     private var keyboardType: SRTKeyBoardType = .alphaAndNumeric
-    
+
     private var marginLeading = 5.0
     private let marginTop = 5.0
     private let buttonCountLine1 = 10
@@ -178,6 +179,10 @@ public class SRTKeyboardView: UIInputView {
     private var encodeOffet: UInt8 = 0
 
     private var doingFastCancal: Bool = false
+
+    private var alphaSymbolButtonType: SRTKeyBoardType = .symbol
+    private var numericSymbolButtonType: SRTKeyBoardType = .numeric
+
     // MARK: - Lifecycle
     // Initialization time should be after viewSafeAreaInsetsDidChange
     public init() {
@@ -225,7 +230,7 @@ public class SRTKeyboardView: UIInputView {
             button.textInput = textInput
         }
     }
-    
+
     private func setKeyBoardView() {
         resetUIParameters()
         for button in buttons {
@@ -262,14 +267,26 @@ public class SRTKeyboardView: UIInputView {
     private func tapFinishButton(_ sender: UIButton) {
         textInput?.resignFirstResponder()
     }
-    
+
     @objc
     private func tapChangeSymbolOrAlphaButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+
+        if sender.isSelected {
+            alphaSymbolButtonType = .alphaAndNumeric
+        } else {
+            alphaSymbolButtonType = .symbol
+        }
+
         if keyboardType == .alphaAndNumeric {
             keyboardType = .symbol
         } else {
             keyboardType = .alphaAndNumeric
+        }
+
+        if keyboardType == .alphaAndNumeric && numericSymbolButtonType == .alphaAndNumeric {
+            alphaSymbolButtonButton.isSelected = !alphaSymbolButtonButton.isSelected
+            numericSymbolButtonType = .numeric
         }
         setKeyBoardView()
     }
@@ -277,11 +294,24 @@ public class SRTKeyboardView: UIInputView {
     @objc
     private func tapChangeNumericOrAlphaButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+
+        if sender.isSelected {
+            numericSymbolButtonType = .alphaAndNumeric
+        } else {
+            numericSymbolButtonType = .numeric
+        }
+
         if keyboardType == .numeric {
             keyboardType = .alphaAndNumeric
         } else {
             keyboardType = .numeric
         }
+
+        if keyboardType == .numeric && alphaSymbolButtonType == .alphaAndNumeric {
+            changeKeyBoardTypeButton.isSelected = !changeKeyBoardTypeButton.isSelected
+            alphaSymbolButtonType = .symbol
+        }
+
         setKeyBoardView()
     }
 
@@ -397,7 +427,7 @@ extension SRTKeyboardView {
 // MARK: - UI Layout
 
 extension SRTKeyboardView {
-    
+
     private func resetUIParameters() {
         let screenWidth = UIScreen.main.bounds.size.width
         if screenWidth < 370.0 { // iPhone SE 1st generation
@@ -408,7 +438,7 @@ extension SRTKeyboardView {
         let maxButtonCountPerRow = max(buttonCountLine1, buttonCountLine2, buttonCountLine3, buttonCountLine4)
         marginHorizontalBetweenButtons = Double(Int(screenWidth) - Int(buttonSize.width) * maxButtonCountPerRow - Int(marginLeading * 2)) / Double(maxButtonCountPerRow - 1)
         marginVerticalBetweenButtons = Double(Int(SRTKeyboardView.keyboardHeight - marginTop * 2) - Int(buttonSize.height) * buttonLines) / Double(buttonLines - 1)
-        
+
         firstAlphaPosition.removeAll()
         switch keyboardType {
         case .numeric:
@@ -441,7 +471,7 @@ extension SRTKeyboardView {
             firstAlphaPosition.append(CGPoint(x: line4x, y: marginTop + Double(buttonSize.height * 3.0) + marginVerticalBetweenButtons + marginVerticalBetweenButtons + marginVerticalBetweenButtons))
         }
     }
-    
+
     private func setUIParameters() {
         let screenWidth = UIScreen.main.bounds.size.width
         if screenWidth < 370.0 { // iPhone SE 1st generation
@@ -476,8 +506,8 @@ extension SRTKeyboardView {
             return $0
         }(UIView())
         accessoryView = view
-        
-        
+
+
         let label: UILabel = { [weak self] in
             self?.accessoryView.addSubview($0)
             $0.textColor = .black
@@ -491,8 +521,8 @@ extension SRTKeyboardView {
             return $0
         }(UILabel())
         accessoryTitleLabel = label
-        
-        
+
+
         view = {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
@@ -505,9 +535,9 @@ extension SRTKeyboardView {
             return $0
         }(UIView())
         kyeboardContainer = view
-        
-        
-        
+
+
+
         let button: UIButton = {
             $0.translatesAutoresizingMaskIntoConstraints = false
             accessoryView.addSubview($0)
@@ -522,7 +552,7 @@ extension SRTKeyboardView {
         }(UIButton())
         finishButton = button
         button.addTarget(self, action: #selector(tapFinishButton(_:)), for: .touchUpInside)
-        
+
         let symbolAndAlphaBtn: UIButton = {
             $0.translatesAutoresizingMaskIntoConstraints = false
             accessoryView.addSubview($0)
@@ -554,7 +584,7 @@ extension SRTKeyboardView {
             }
             return $0
         }(UIButton())
-        changeKeyBoardTypeButton = numericAndAlphaBtn
+        alphaSymbolButtonButton = numericAndAlphaBtn
         numericAndAlphaBtn.addTarget(self, action: #selector(tapChangeNumericOrAlphaButton(_:)), for: .touchUpInside)
     }
 
@@ -643,7 +673,7 @@ extension SRTKeyboardView {
                 return $0
             }(UIButton())
             button.addTarget(self, action: #selector(tapFunctionButton(_:)), for: .touchUpInside)
-            
+
             image = UIImage(named: "keyboard_shift@3x", in: Bundle(url: url), compatibleWith: nil) ?? UIImage()
             button = {
                 $0.translatesAutoresizingMaskIntoConstraints = false
@@ -666,7 +696,7 @@ extension SRTKeyboardView {
             }(UIButton())
             button.addTarget(self, action: #selector(tapFunctionButton(_:)), for: .touchUpInside)
         }
-        
+
         if keyboardType == .symbol {
             let image: UIImage = UIImage(named: "keyboard_space@3x", in: Bundle(url: url), compatibleWith: nil) ?? UIImage()
             let button: UIButton = {
@@ -691,7 +721,7 @@ extension SRTKeyboardView {
             }(UIButton())
             button.addTarget(self, action: #selector(tapFunctionButton(_:)), for: .touchUpInside)
         }
-        
+
         // create backspace button
         let image = UIImage(named: "keyboard_delete@3x", in: Bundle(url: url), compatibleWith: nil) ?? UIImage()
         let button: UIButton = {

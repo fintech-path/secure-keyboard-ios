@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88k-8r-HRT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88k-8r-HRT">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +14,7 @@
             <objects>
                 <navigationController id="88k-8r-HRT" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jVk-HO-X4X">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -34,12 +34,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eo3-mg-2oO" customClass="SRTAppendTextField" customModule="HCSecurityKeyboardDemo" customModuleProvider="target">
-                                <rect key="frame" x="20" y="167" width="374" height="34"/>
+                                <rect key="frame" x="20" y="171" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hvt-ch-6fi">
-                                <rect key="frame" x="30" y="221" width="354" height="20.5"/>
+                                <rect key="frame" x="30" y="225" width="354" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gxc-Gx-JkI" customClass="SRTAppendTextField" customModule="HCSecurityKeyboardDemo" customModuleProvider="target">
+                                <rect key="frame" x="20" y="309" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAb-Qz-rVE">
+                                <rect key="frame" x="30" y="384" width="354" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -48,17 +59,25 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="gxc-Gx-JkI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="049-qe-SGN"/>
                             <constraint firstItem="Hvt-ch-6fi" firstAttribute="top" secondItem="Eo3-mg-2oO" secondAttribute="bottom" constant="20" id="A9S-D2-mgb"/>
+                            <constraint firstItem="LAb-Qz-rVE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="Chj-eC-ddY"/>
                             <constraint firstItem="Hvt-ch-6fi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="MqB-eq-oHW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Eo3-mg-2oO" secondAttribute="trailing" constant="20" id="Rml-38-oHT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hvt-ch-6fi" secondAttribute="trailing" constant="30" id="Ygi-MQ-GGf"/>
+                            <constraint firstItem="gxc-Gx-JkI" firstAttribute="top" secondItem="Hvt-ch-6fi" secondAttribute="bottom" constant="63.5" id="g9J-m2-CzQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gxc-Gx-JkI" secondAttribute="trailing" constant="20" id="opx-ob-QCI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LAb-Qz-rVE" secondAttribute="trailing" constant="30" id="qbl-MT-HEX"/>
                             <constraint firstItem="Eo3-mg-2oO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="qex-L5-i51"/>
                             <constraint firstItem="Eo3-mg-2oO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="79" id="uoP-S4-P1V"/>
+                            <constraint firstItem="LAb-Qz-rVE" firstAttribute="top" secondItem="gxc-Gx-JkI" secondAttribute="bottom" constant="41" id="wLw-P0-TGc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="aZm-rE-aoi"/>
                     <connections>
                         <outlet property="inputOrginText" destination="Hvt-ch-6fi" id="Wcd-Bb-fBu"/>
+                        <outlet property="shuffleInput" destination="gxc-Gx-JkI" id="TZY-d8-jW1"/>
+                        <outlet property="shuffleText" destination="LAb-Qz-rVE" id="YC4-5X-dG9"/>
                         <outlet property="textInput" destination="Eo3-mg-2oO" id="wUY-rE-rZX"/>
                     </connections>
                 </viewController>

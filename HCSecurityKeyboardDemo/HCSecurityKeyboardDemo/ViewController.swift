@@ -19,7 +19,10 @@ import HCSecurityKeyboard
 class ViewController: UIViewController {
     @IBOutlet weak var textInput: SRTAppendTextField!
     @IBOutlet weak var inputOrginText: UILabel!
-    
+
+    @IBOutlet weak var shuffleInput: SRTAppendTextField!
+    @IBOutlet weak var shuffleText: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,11 +31,12 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNonShuffleKeyBoardField()
+        setupShuffleKeyBoardField()
     }
     
     private func setupNonShuffleKeyBoardField() {
         let keyboardView = SRTKeyboardView()
-        keyboardView.title = "安全键盘"
+        keyboardView.title = "Non Shuffle Keyboard"
         keyboardView.titleBackgroundColor = .darkGray
         keyboardView.titleColor = .white
 
@@ -48,6 +52,29 @@ class ViewController: UIViewController {
         // Limit the number of inputs
         keyboardView.textLimited = 50
         textInput.delegate = self
+        keyboardView.delegate = self
+        // Try to leave this sentence to the end, because this is when the component is initialized
+        keyboardView.textInput = shuffleInput
+    }
+
+    private func setupShuffleKeyBoardField() {
+        let keyboardView = SRTKeyboardView()
+        keyboardView.title = "Shuffle Keyboard"
+        keyboardView.titleBackgroundColor = .darkGray
+        keyboardView.titleColor = .white
+
+        keyboardView.observeTextChanged = { [weak self] in
+            self?.shuffleText.text = "The input is： \(keyboardView.decryptedText)"
+        }
+        /*
+        randomKeys
+        false: Use the default keyboard format
+        true: random keyboard is used for each initialization
+        */
+        keyboardView.randomKeys = true
+        // Limit the number of inputs
+        keyboardView.textLimited = 50
+        shuffleInput.delegate = self
         keyboardView.delegate = self
         // Try to leave this sentence to the end, because this is when the component is initialized
         keyboardView.textInput = textInput
