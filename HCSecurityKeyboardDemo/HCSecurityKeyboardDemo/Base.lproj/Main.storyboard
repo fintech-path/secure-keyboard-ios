@@ -76,9 +76,9 @@
                     <navigationItem key="navigationItem" id="aZm-rE-aoi"/>
                     <connections>
                         <outlet property="inputOrginText" destination="Hvt-ch-6fi" id="Wcd-Bb-fBu"/>
-                        <outlet property="shuffleInput" destination="gxc-Gx-JkI" id="TZY-d8-jW1"/>
+                        <outlet property="shuffleInput" destination="gxc-Gx-JkI" id="LY3-o5-r6U"/>
                         <outlet property="shuffleText" destination="LAb-Qz-rVE" id="YC4-5X-dG9"/>
-                        <outlet property="textInput" destination="Eo3-mg-2oO" id="wUY-rE-rZX"/>
+                        <outlet property="textInput" destination="Eo3-mg-2oO" id="fpY-PM-fXh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

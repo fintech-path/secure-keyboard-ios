@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         keyboardView.titleColor = .white
 
         keyboardView.observeTextChanged = { [weak self] in
-            self?.inputOrginText.text = "The input is： \(keyboardView.decryptedText)"
+            self?.inputOrginText.text = "Non Shuffle Keyboard： \(keyboardView.decryptedText)"
         }
         /*
         randomKeys
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         textInput.delegate = self
         keyboardView.delegate = self
         // Try to leave this sentence to the end, because this is when the component is initialized
-        keyboardView.textInput = shuffleInput
+        keyboardView.textInput = textInput
     }
 
     private func setupShuffleKeyBoardField() {
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
         keyboardView.titleColor = .white
 
         keyboardView.observeTextChanged = { [weak self] in
-            self?.shuffleText.text = "The input is： \(keyboardView.decryptedText)"
+            self?.shuffleText.text = "Shuffle Keyboard： \(keyboardView.decryptedText)"
         }
         /*
         randomKeys
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         shuffleInput.delegate = self
         keyboardView.delegate = self
         // Try to leave this sentence to the end, because this is when the component is initialized
-        keyboardView.textInput = textInput
+        keyboardView.textInput = shuffleInput
     }
 }
 
