@@ -280,11 +280,16 @@ public class SRTKeyboardView: UIInputView {
 
         if keyboardType == .alphaAndNumeric {
             keyboardType = .symbol
+        } else if keyboardType == .numeric {
+            keyboardType = .symbol
         } else {
             keyboardType = .alphaAndNumeric
         }
 
         if keyboardType == .alphaAndNumeric && numericSymbolButtonType == .alphaAndNumeric {
+            alphaSymbolButtonButton.isSelected = !alphaSymbolButtonButton.isSelected
+            numericSymbolButtonType = .numeric
+        } else if keyboardType == .symbol && numericSymbolButtonType == .alphaAndNumeric {
             alphaSymbolButtonButton.isSelected = !alphaSymbolButtonButton.isSelected
             numericSymbolButtonType = .numeric
         }
@@ -369,7 +374,7 @@ public class SRTKeyboardView: UIInputView {
         if shouldInsertText {
             let textBox: SRTSecurityTextBox = self
             // in security mode, only support append, insert and replace is denied
-            textField.text = "\(textField.text ?? "")*"
+            textField.text = "\(textField.text ?? "") "
             textBox.append(" ")
         }
     }
