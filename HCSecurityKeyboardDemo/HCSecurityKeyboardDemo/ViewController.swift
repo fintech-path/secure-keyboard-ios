@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         keyboardView.titleColor = .white
 
         keyboardView.observeTextChanged = { [weak self] in
-            self?.inputOrginText.text = "Non Shuffle Keyboard： \(keyboardView.decryptedText)"
+            self?.inputOrginText.text = "\(keyboardView.decryptedText)"
         }
         /*
         randomKeys
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
         keyboardView.titleColor = .white
 
         keyboardView.observeTextChanged = { [weak self] in
-            self?.shuffleText.text = "Shuffle Keyboard： \(keyboardView.decryptedText)"
+            self?.shuffleText.text = "\(keyboardView.decryptedText)"
         }
         /*
         randomKeys

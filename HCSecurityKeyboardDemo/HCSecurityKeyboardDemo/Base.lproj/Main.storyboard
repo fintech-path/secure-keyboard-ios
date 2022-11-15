@@ -41,7 +41,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hvt-ch-6fi">
                                 <rect key="frame" x="30" y="225" width="354" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.87843137250000003" green="0.12549019610000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gxc-Gx-JkI" customClass="SRTAppendTextField" customModule="HCSecurityKeyboardDemo" customModuleProvider="target">
@@ -51,6 +51,18 @@
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAb-Qz-rVE">
                                 <rect key="frame" x="30" y="384" width="354" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.87843137250000003" green="0.12549019610000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Non Shuffle Keyboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVO-Jm-9yi">
+                                <rect key="frame" x="25" y="133" width="167" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shuffle Keyboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWg-ff-94G">
+                                <rect key="frame" x="25" y="280" width="132" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -66,10 +78,14 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Eo3-mg-2oO" secondAttribute="trailing" constant="20" id="Rml-38-oHT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hvt-ch-6fi" secondAttribute="trailing" constant="30" id="Ygi-MQ-GGf"/>
                             <constraint firstItem="gxc-Gx-JkI" firstAttribute="top" secondItem="Hvt-ch-6fi" secondAttribute="bottom" constant="63.5" id="g9J-m2-CzQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SWg-ff-94G" secondAttribute="bottom" constant="561" id="hLc-fY-GnS"/>
+                            <constraint firstItem="SWg-ff-94G" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="jRD-N7-33i"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gxc-Gx-JkI" secondAttribute="trailing" constant="20" id="opx-ob-QCI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LAb-Qz-rVE" secondAttribute="trailing" constant="30" id="qbl-MT-HEX"/>
                             <constraint firstItem="Eo3-mg-2oO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="qex-L5-i51"/>
+                            <constraint firstItem="mVO-Jm-9yi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="sVs-Lr-zEb"/>
                             <constraint firstItem="Eo3-mg-2oO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="79" id="uoP-S4-P1V"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mVO-Jm-9yi" secondAttribute="bottom" constant="708" id="w3z-3y-Eob"/>
                             <constraint firstItem="LAb-Qz-rVE" firstAttribute="top" secondItem="gxc-Gx-JkI" secondAttribute="bottom" constant="41" id="wLw-P0-TGc"/>
                         </constraints>
                     </view>
@@ -83,7 +99,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-630" y="-7"/>
+            <point key="canvasLocation" x="-630.43478260869574" y="-7.3660714285714279"/>
         </scene>
     </scenes>
     <resources>
